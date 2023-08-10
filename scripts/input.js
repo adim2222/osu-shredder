@@ -6,14 +6,18 @@ let key2 = "x";
 
 const getKey1 = () => {
     key1 = key1input.value.toLowerCase();
+    document.querySelector(".hitbar--key1").innerHTML = key1.toUpperCase();
 };
 
 const getKey2 = () => {
     key2 = key2input.value.toLowerCase();
+    document.querySelector(".hitbar--key2").innerHTML = key2.toUpperCase();
 };
 
 key1input.addEventListener("input", getKey1);
 key2input.addEventListener("input", getKey2);
+
+
 
 addEventListener("keydown", (event) => {
     switch (event.key) {

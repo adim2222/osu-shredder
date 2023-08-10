@@ -1,8 +1,6 @@
 const key1display = document.querySelector(".hitbar--key1");
 const key2display = document.querySelector(".hitbar--key2");
 
-
-
 const key1down = () => {
     key1display.style.backgroundColor = "white";
 };
