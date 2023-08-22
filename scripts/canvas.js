@@ -30,11 +30,12 @@ const update = () => {
 };
 
 bpmInput.addEventListener("input", () => {
+    clearInterval(intervalId);
     timing = 60000 / bpmInput.value;
-    setInterval((id) => {
+    intervalId = setInterval((id) => {
         createHit();
         console.log(id);
-    }, timing);
+    }, timing / 4);
 })
 
 setInterval(update, 1);
