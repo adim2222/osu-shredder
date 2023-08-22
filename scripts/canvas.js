@@ -17,6 +17,11 @@ function createHit() {
     savedObjects.push({ x: 1000 })
 };
 
+const hit = () => {
+    console.log(savedObjects[0].x);
+    savedObjects.shift();
+}
+
 // canvas rendering update function
 const update = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -26,6 +31,9 @@ const update = () => {
         ctx.lineTo(object.x, canvas.height);
         ctx.stroke();
         object.x -= ar;
+        if (savedObjects[0].x <= 0) {
+            savedObjects.shift();
+        }
     })
     ctx.lineWidth = 10;
     ctx.beginPath();

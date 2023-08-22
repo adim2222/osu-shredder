@@ -3,9 +3,11 @@ const key2display = document.querySelector(".hitbar--key2");
 
 const key1down = () => {
     key1display.style.backgroundColor = "white";
+    hit();
 };
 const key2down = () => {
     key2display.style.backgroundColor = "white";
+    hit();
 };
 
 const key1up = () => {
