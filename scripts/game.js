@@ -1,6 +1,7 @@
 const canvas = document.querySelector(".hitbar--canvas");
 const ctx = canvas.getContext("2d");
 const bpmInput = document.querySelector(".input--bpm");
+const urCounter = document.querySelector(".unstable--rate");
 
 let timing = 1000;
 
@@ -20,7 +21,6 @@ function createHit() {
 };
 
 function hit() {
-    
     if (savedObjects[0].x < 100) {
         accuracy = 100 - savedObjects[0].x;
     } else if (savedObjects[0].x > 100) {
@@ -29,7 +29,7 @@ function hit() {
         accuracy = 0;
     }
 
-    console.log(accuracy);
+    urCounter.innerHTML = `Unstable rate: ${accuracy}`
 
     savedObjects.shift();
 }
@@ -45,7 +45,7 @@ const update = () => {
         object.x -= ar;
         if (savedObjects[0].x <= 0) {
             savedObjects.shift();
-            console.log("miss");
+
         }
     })
     ctx.lineWidth = 10;
