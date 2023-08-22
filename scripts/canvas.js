@@ -9,17 +9,17 @@ let intervalId;
 let savedObjects = [];
 
 canvas.width = 1000;
-let ar = 3;
+let ar = 4;
 
 ctx.strokeStyle = '#ffffff';
 
 function createHit() {
-    savedObjects.push({x: 1000})
-}
+    savedObjects.push({ x: 1000 })
+};
 
 // canvas rendering update function
 const update = () => {
-    ctx.clearRect(0,0,canvas.width,canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     savedObjects.forEach(function (object) {
         ctx.beginPath();
         ctx.moveTo(object.x, 0);
@@ -27,14 +27,20 @@ const update = () => {
         ctx.stroke();
         object.x -= ar;
     })
+    ctx.lineWidth = 10;
+    ctx.beginPath();
+    ctx.moveTo(100, 0);
+    ctx.lineTo(100, canvas.height);
+    ctx.stroke();
+    ctx.lineWidth = 3;
 };
 
 bpmInput.addEventListener("input", () => {
     clearInterval(intervalId);
     timing = 60000 / bpmInput.value;
-    intervalId = setInterval((id) => {
+    savedObjects.length = 0;
+    intervalId = setInterval(() => {
         createHit();
-        console.log(id);
     }, timing / 4);
 })
 
