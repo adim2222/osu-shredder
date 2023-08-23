@@ -26,12 +26,18 @@
                 </div>
             </div>
             <canvas class="hitbar--canvas"></canvas>
+            <canvas class="hitbar--overlay"></canvas>
         </div>
-        <div class="results">
-            <div class="unstable--rate">Unstable rate: 0</div>
-        </div>
-        <div class="options">
-
+        <div class="inputs">
+            <div class="results">
+                <div class="unstable--rate">Unstable rate: 0</div>
+                <div class="accuracy--precentage"></div>
+            </div>
+            <div class="options">
+                Hitbar speed (OD/AR): <input type="number" class="speed" min="1" max="12" value="4"><hr>
+                Timing window (300): <input type="number" class="hitFrame" min="5" max="80" value="45"><hr>
+                Auto stop (sec): <input type="number" class="stop" min="5" value="99999">
+            </div>
         </div>
         made by: <a href="https://osu.ppy.sh/users/15744871">adim2222</a>
     </main>

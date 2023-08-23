@@ -2,12 +2,31 @@ const canvas = document.querySelector(".hitbar--canvas");
 const ctx = canvas.getContext("2d");
 const bpmInput = document.querySelector(".input--bpm");
 const urCounter = document.querySelector(".unstable--rate");
+const hitbarSpeedSetting = document.querySelector(".speed");
+const hitframeSetting = document.querySelector(".hitFrame");
+const stop = document.querySelector(".stop");
+
+stop.addEventListener("input", () => {
+    autoStop = stop.value * 1000;
+})
+hitbarSpeedSetting.addEventListener("input", () => {
+    ar = hitbarSpeedSetting.value;
+})
+hitframeSetting.addEventListener("input", () => {
+    hitFrame = hitframeSetting.value;
+})
 
 let timing = 1000;
 
+let autoStop = 99999 * 60;
+
 let intervalId;
 
+let hitFrame = 45;
+
 let savedObjects = [];
+
+let hitJudgements = [];
 
 canvas.width = 1000;
 let ar = 4;
@@ -15,6 +34,8 @@ let ar = 4;
 let accuracy = 0;
 
 ctx.strokeStyle = '#ffffff';
+
+
 
 function createHit() {
     savedObjects.push({ x: 1000 })
@@ -27,6 +48,17 @@ function hit() {
         accuracy = savedObjects[0].x - 100;
     } else {
         accuracy = 0;
+    }
+
+    switch (true) {
+        case(accuracy < hitFrame):
+            hitJudgements.push(300);
+            console.log(300);
+            break;
+        case(accuracy >= hitFrame):
+            hitJudgements.push(100);
+            console.log(100);
+            break;
     }
 
     urCounter.innerHTML = `Unstable rate: ${accuracy}`
@@ -56,13 +88,18 @@ const update = () => {
     ctx.lineWidth = 3;
 };
 
-bpmInput.addEventListener("input", () => {
+bpmInput.addEventListener("input", start);
+
+function start() {
     clearInterval(intervalId);
     timing = 60000 / bpmInput.value;
     savedObjects.length = 0;
     intervalId = setInterval(() => {
         createHit();
     }, timing / 4);
-})
+    setTimeout(() => {
+        clearInterval(intervalId);
+    }, autoStop)
+}
 
 setInterval(update, 1);

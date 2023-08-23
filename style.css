@@ -68,16 +68,30 @@ body {
     transition: 0.2s;
 }
 
+.hitbar--overlay {
+    position: absolute;
+    height: 170px;
+}
+
+.inputs {
+    display: flex;
+}
+
 .options {
     background-color: rgb(30, 30, 30);
-    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px;
+    width: 50%;
+    text-align: left;
+    font-size: 30px;
 }
 
 .results {
     background-color: rgb(30, 30, 30);
     padding: 20px;
     border-radius: 20px;
-    margin-top: 10px;
+    margin: 10px;
     width: 50%;
     text-align: left;
     font-size: 30px;
@@ -86,4 +100,14 @@ body {
 a {
     color: rgb(172, 57, 109);
     text-decoration: none;
+}
+
+.speed, .hitFrame {
+    width: 50px;
+    font-size: 20px;
+}
+
+.stop {
+    width: 80px;
+    font-size: 20px;
 }
