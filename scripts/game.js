@@ -5,6 +5,8 @@ const urCounter = document.querySelector(".unstable--rate");
 const hitbarSpeedSetting = document.querySelector(".speed");
 const hitframeSetting = document.querySelector(".hitFrame");
 const stop = document.querySelector(".stop");
+const effectOverlay = document.querySelector(".hitbar--overlay").getContext("2d");
+const accuracyDisplay = document.querySelector(".accuracy--precentage");
 
 stop.addEventListener("input", () => {
     autoStop = stop.value * 1000;
@@ -26,42 +28,51 @@ let hitFrame = 45;
 
 let savedObjects = [];
 
-let hitJudgements = [];
-
 canvas.width = 1000;
 let ar = 4;
-
 let accuracy = 0;
+let ur = 0;
+let pointSum = 0;
+let pointMax = 0;
 
 ctx.strokeStyle = '#ffffff';
 
-
+effectOverlay.fillStyle = "rgb(30,30,30)"
 
 function createHit() {
     savedObjects.push({ x: 1000 })
 };
 
 function hit() {
+
+    pointMax += 300;
+
     if (savedObjects[0].x < 100) {
-        accuracy = 100 - savedObjects[0].x;
+        ur = 100 - savedObjects[0].x;
     } else if (savedObjects[0].x > 100) {
-        accuracy = savedObjects[0].x - 100;
+        ur = savedObjects[0].x - 100;
     } else {
-        accuracy = 0;
+        ur = 0;
     }
 
     switch (true) {
-        case(accuracy < hitFrame):
-            hitJudgements.push(300);
+        case(ur < hitFrame):
+            pointSum += 300;
             console.log(300);
+            effectOverlay.fillStyle = "rgb(0, 222, 196)"
             break;
-        case(accuracy >= hitFrame):
-            hitJudgements.push(100);
+        case(ur >= hitFrame):
+            pointSum += 100;
             console.log(100);
+            effectOverlay.fillStyle = "rgb(0, 222, 33)"
             break;
     }
 
-    urCounter.innerHTML = `Unstable rate: ${accuracy}`
+    accuracy = (pointSum/pointMax)*100; 
+
+    accuracyDisplay.innerHTML = `Accuracy: ${accuracy.toFixed(2)}%`
+
+    urCounter.innerHTML = `Unstable rate: ${ur}`
 
     savedObjects.shift();
 }
@@ -77,7 +88,7 @@ const update = () => {
         object.x -= ar;
         if (savedObjects[0].x <= 0) {
             savedObjects.shift();
-
+            effectOverlay.fillStyle = "rgb(255, 0, 0)"
         }
     })
     ctx.lineWidth = 10;
@@ -86,6 +97,8 @@ const update = () => {
     ctx.lineTo(100, canvas.height);
     ctx.stroke();
     ctx.lineWidth = 3;
+
+    effectOverlay.fillRect(168,0,10,canvas.height)
 };
 
 bpmInput.addEventListener("input", start);
