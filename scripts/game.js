@@ -7,9 +7,26 @@ const hitframeSetting = document.querySelector(".hitFrame");
 const stop = document.querySelector(".stop");
 const effectOverlay = document.querySelector(".hitbar--overlay").getContext("2d");
 const accuracyDisplay = document.querySelector(".accuracy--precentage");
+const startButton = document.querySelector(".start");
+
+let timing = 1000;
+let autoStop = 99999 * 60;
+let intervalId;
+let hitFrame = 45;
+let savedObjects = [];
+let ar = 4;
+let accuracy = 0;
+let ur = 0;
+let pointSum = 0;
+let pointMax = 0;
+
+canvas.width = 1000;
+ctx.strokeStyle = '#ffffff';
+effectOverlay.fillStyle = "rgb(30,30,30)"
 
 stop.addEventListener("input", () => {
     autoStop = stop.value * 1000;
+    stopGame();
 })
 hitbarSpeedSetting.addEventListener("input", () => {
     ar = hitbarSpeedSetting.value;
@@ -17,31 +34,8 @@ hitbarSpeedSetting.addEventListener("input", () => {
 hitframeSetting.addEventListener("input", () => {
     hitFrame = hitframeSetting.value;
 })
-
-let timing = 1000;
-
-let autoStop = 99999 * 60;
-
-let intervalId;
-
-let hitFrame = 45;
-
-let savedObjects = [];
-
-canvas.width = 1000;
-let ar = 4;
-let accuracy = 0;
-let ur = 0;
-let pointSum = 0;
-let pointMax = 0;
-
-ctx.strokeStyle = '#ffffff';
-
-effectOverlay.fillStyle = "rgb(30,30,30)"
-
-function createHit() {
-    savedObjects.push({ x: 1000 })
-};
+startButton.addEventListener("click", start);
+bpmInput.addEventListener("input", stopGame);
 
 function hit() {
 
@@ -101,18 +95,20 @@ const update = () => {
     effectOverlay.fillRect(168,0,10,canvas.height)
 };
 
-bpmInput.addEventListener("input", start);
-
 function start() {
     clearInterval(intervalId);
     timing = 60000 / bpmInput.value;
     savedObjects.length = 0;
     intervalId = setInterval(() => {
-        createHit();
+        savedObjects.push({ x: 1000 })
     }, timing / 4);
     setTimeout(() => {
         clearInterval(intervalId);
     }, autoStop)
+}
+
+function stopGame() {
+    clearInterval(intervalId)
 }
 
 setInterval(update, 1);

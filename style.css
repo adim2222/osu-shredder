@@ -111,3 +111,16 @@ a {
     width: 80px;
     font-size: 20px;
 }
+
+.start {
+    background-color: rgb(172, 57, 109);
+    border: solid white 2px;
+    color: white;
+    font-size: 20px;
+    margin-left: 200px;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+.start:hover {
+    background-color: rgb(192, 77, 129);
+}
