@@ -9,6 +9,9 @@ const effectOverlay = document.querySelector(".hitbar--overlay").getContext("2d"
 const accuracyDisplay = document.querySelector(".accuracy--precentage");
 const startButton = document.querySelector(".start");
 
+const hitsound1 = new Audio('../src/assadsa.mp3');
+const hitsound2 = new Audio('../src/dadasdas.mp3');
+
 let timing = 1000;
 let autoStop = 99999 * 60;
 let intervalId;
@@ -19,6 +22,7 @@ let accuracy = 0;
 let ur = 0;
 let pointSum = 0;
 let pointMax = 0;
+let hits = 0;
 
 canvas.width = 1000;
 ctx.strokeStyle = '#ffffff';
@@ -40,6 +44,9 @@ bpmInput.addEventListener("input", stopGame);
 function hit() {
 
     pointMax += 300;
+    hits += 1;
+
+    if (hits === 4) {hits = 0; hitsound1.cloneNode().play();}else{hitsound2.cloneNode().play();};
 
     if (savedObjects[0].x < 100) {
         ur = 100 - savedObjects[0].x;
