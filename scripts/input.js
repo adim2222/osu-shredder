@@ -1,8 +1,8 @@
 const key1input = document.querySelector(".key--input__1");
 const key2input = document.querySelector(".key--input__2");
 
-let key1 = localStorage.getItem("key1") || "z";
-let key2 = localStorage.getItem("key2") || "x";
+let key1 = JSON.parse(localStorage.getItem("key1")) || "z";
+let key2 = JSON.parse(localStorage.getItem("key2")) || "x";
 
 const getKey1 = () => {
     key1 = key1input.value.toLowerCase();
